@@ -14,7 +14,8 @@ const ServiceCard = memo(({ service }) => {
     const getImageUrl = (img) => {
         if (!img) return `https://images.unsplash.com/photo-1581578731548-c64695cc6954?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60`;
         if (img.startsWith('http')) return img;
-        return `${backendUrl}${img}`;
+        const separator = (backendUrl.endsWith('/') || img.startsWith('/')) ? '' : '/';
+        return `${backendUrl}${separator}${img}`;
     };
 
     return (
