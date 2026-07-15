@@ -124,8 +124,9 @@ export default function CustomerDashboard() {
                                     <div className="w-full sm:w-48 h-32 rounded-2xl overflow-hidden shadow-inner bg-gray-100 shrink-0">
                                         {(() => {
                                             const backendUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api/', '') : 'http://127.0.0.1:8000';
+                                            const sep = (backendUrl.endsWith('/') || (rec.service.image && rec.service.image.startsWith('/'))) ? '' : '/';
                                             const imageUrl = rec.service.image
-                                                ? (rec.service.image.startsWith('http') ? rec.service.image : `${backendUrl}${rec.service.image}`)
+                                                ? (rec.service.image.startsWith('http') ? rec.service.image : `${backendUrl}${sep}${rec.service.image}`)
                                                 : "https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&w=400&q=60";
                                             return (
                                                 <img

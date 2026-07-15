@@ -39,7 +39,9 @@ export default function ProviderPublicProfile() {
 
     const getAvatarUrl = (url) => {
         if (!url) return null;
-        return url.startsWith('http') ? url : `${backendUrl}${url}`;
+        if (url.startsWith('http')) return url;
+        const separator = (backendUrl.endsWith('/') || url.startsWith('/')) ? '' : '/';
+        return `${backendUrl}${separator}${url}`;
     };
 
     if (loading) {

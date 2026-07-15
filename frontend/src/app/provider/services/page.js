@@ -135,7 +135,8 @@ export default function ProviderServices() {
         // Show existing image in preview if there is one
         if (service.image) {
             const backendUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api/', '') : 'http://127.0.0.1:8000';
-            setImagePreview(service.image.startsWith('http') ? service.image : `${backendUrl}${service.image}`);
+            const sep = (backendUrl.endsWith('/') || service.image.startsWith('/')) ? '' : '/';
+            setImagePreview(service.image.startsWith('http') ? service.image : `${backendUrl}${sep}${service.image}`);
         } else {
             setImagePreview(null);
         }
@@ -347,8 +348,9 @@ export default function ProviderServices() {
                                 <div className="h-40 bg-gray-100 relative">
                                     {(() => {
                                         const backendUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api/', '') : 'http://127.0.0.1:8000';
+                                        const sep = (backendUrl.endsWith('/') || (service.image && service.image.startsWith('/'))) ? '' : '/';
                                         const imageUrl = service.image
-                                            ? (service.image.startsWith('http') ? service.image : `${backendUrl}${service.image}`)
+                                            ? (service.image.startsWith('http') ? service.image : `${backendUrl}${sep}${service.image}`)
                                             : "https://images.unsplash.com/photo-1581578731548-c64695cc6954?auto=format&fit=crop&w=800&q=60";
                                         return (
                                             <img

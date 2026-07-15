@@ -58,8 +58,9 @@ const Categories = () => {
                             <div className="w-16 h-16 mb-4 flex items-center justify-center rounded-xl bg-blue-50 group-hover:bg-blue-100 transition-colors">
                                 {(() => {
                                     const backendUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api/', '') : 'http://127.0.0.1:8000';
+                                    const sep = (backendUrl.endsWith('/') || (category.icon_url && category.icon_url.startsWith('/'))) ? '' : '/';
                                     const iconUrl = category.icon_url
-                                        ? (category.icon_url.startsWith('http') ? category.icon_url : `${backendUrl}${category.icon_url}`)
+                                        ? (category.icon_url.startsWith('http') ? category.icon_url : `${backendUrl}${sep}${category.icon_url}`)
                                         : 'https://cdn-icons-png.flaticon.com/512/3094/3094833.png';
                                     return (
                                         <div className="relative w-10 h-10">
