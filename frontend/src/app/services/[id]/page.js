@@ -106,9 +106,10 @@ export default function ServiceDetailPage() {
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-8 aspect-video">
                             {(() => {
-                                const backendUrl = process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace('/api/', '') : 'http://127.0.0.1:8000';
+                                const backendUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000').replace(/\/api\/?$/, '');
+                                const sep = (backendUrl.endsWith('/') || (service.image && service.image.startsWith('/'))) ? '' : '/';
                                 const imageUrl = service.image
-                                    ? (service.image.startsWith('http') ? service.image : `${backendUrl}${service.image}`)
+                                    ? (service.image.startsWith('http') ? service.image : `${backendUrl}${sep}${service.image}`)
                                     : "https://images.unsplash.com/photo-1581578731548-c64695cc6954?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
                                 return (
                                     <img
@@ -149,7 +150,12 @@ export default function ServiceDetailPage() {
                                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-blue-600 mr-4 border-2 border-white shadow-md group-hover:scale-110 transition-transform overflow-hidden">
                                         {service.provider?.profile_picture ? (
                                             <img
-                                                src={service.provider.profile_picture.startsWith('http') ? service.provider.profile_picture : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api/', '')}${service.provider.profile_picture}`}
+                                                src={(() => {
+                                                    if (service.provider.profile_picture.startsWith('http')) return service.provider.profile_picture;
+                                                    const base = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000').replace(/\/api\/?$/, '');
+                                                    const sep = (base.endsWith('/') || service.provider.profile_picture.startsWith('/')) ? '' : '/';
+                                                    return `${base}${sep}${service.provider.profile_picture}`;
+                                                })()}
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
