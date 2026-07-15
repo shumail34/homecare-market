@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Review
 from .serializers import ReviewSerializer, ReviewCreateSerializer
 
@@ -28,7 +28,7 @@ class ReviewListCreateView(generics.ListCreateAPIView):
 class ServiceReviewsView(generics.ListAPIView):
     """List all reviews for a specific service"""
     
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     serializer_class = ReviewSerializer
     
     def get_queryset(self):

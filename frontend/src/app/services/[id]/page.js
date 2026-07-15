@@ -30,7 +30,10 @@ export default function ServiceDetailPage() {
             try {
                 const [serviceRes, reviewsRes] = await Promise.all([
                     api.get(`services/${id}/`),
-                    api.get(`reviews/service/${id}/`)
+                    api.get(`reviews/service/${id}/`).catch(err => {
+                        console.error('Error fetching reviews:', err);
+                        return { data: [] };
+                    })
                 ]);
                 setService(serviceRes.data);
                 setReviews(reviewsRes.data.results || reviewsRes.data);
