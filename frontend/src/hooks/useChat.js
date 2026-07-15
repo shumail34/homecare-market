@@ -26,7 +26,13 @@ export const useChat = (bookingId) => {
             socketRef.current.close();
         }
 
-        const wsBase = process.env.NEXT_PUBLIC_WS_URL || 'ws://127.0.0.1:8000';
+        let wsBase = process.env.NEXT_PUBLIC_WS_URL;
+        if (!wsBase) {
+            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+            const protocol = apiBase.startsWith('https') ? 'wss:' : 'ws:';
+            const host = apiBase.replace('http://', '').replace('https://', '').split('/')[0];
+            wsBase = `${protocol}//${host}`;
+        }
         const url = `${wsBase}/ws/chat/${bookingId}/?token=${token}`;
         console.log(`[Chat] Connecting to: ${url} (attempt ${retryCountRef.current + 1})`);
 
