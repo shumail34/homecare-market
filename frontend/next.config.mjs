@@ -39,6 +39,11 @@ const nextConfig = {
         hostname: 'cdn-icons-png.flaticon.com',
       },
       {
+        protocol: 'http',
+        hostname: '*.onrender.com',
+        pathname: '/media/**',
+      },
+      {
         protocol: 'https',
         hostname: '*.onrender.com',
         pathname: '/media/**',
