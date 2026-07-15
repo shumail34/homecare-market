@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\DELL\Desktop\HomeCareMarket\HomeCareMarket\backend\venv"
+VIRTUAL_ENV="C:\Users\DELL\Desktop\HomeCareMarket (2)\HomeCareMarket\backend\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

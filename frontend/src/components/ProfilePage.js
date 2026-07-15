@@ -125,7 +125,7 @@ const ProfilePage = () => {
                                     ) : null}
                                     {user?.profile_picture ? (
                                         <img
-                                            src={user.profile_picture.startsWith('http') ? user.profile_picture : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${user.profile_picture}`}
+                                            src={user.profile_picture.startsWith('http') ? user.profile_picture : `${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000').replace(/\/api\/?$/, '')}${user.profile_picture}`}
                                             alt="Profile"
                                             className="w-full h-full object-cover"
                                         />

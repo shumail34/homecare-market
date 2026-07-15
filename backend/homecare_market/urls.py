@@ -20,6 +20,9 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.static import serve
+from django.urls import re_path
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
@@ -33,6 +36,10 @@ urlpatterns = [
     path('', lambda request: JsonResponse({"message": "Welcome to Home-Care Market API", "status": "Running"})),
 ]
 
+# Serve media files in both development and production (for Render)
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
